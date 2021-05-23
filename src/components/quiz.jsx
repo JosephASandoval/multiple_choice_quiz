@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Question from "./question";
 import { quizzes } from "../data/quizzes";
 import { messages } from "../data/messages";
 
@@ -50,7 +51,9 @@ class Quiz extends Component {
                 {quizzes[0].questions.length}
               </div>
               <div className="question-text">
-                {quizzes[0].questions[currentQuestion].text}
+                <Question
+                  question={quizzes[0].questions[currentQuestion].text}
+                />
               </div>
             </div>
             <div className="answer-section">
