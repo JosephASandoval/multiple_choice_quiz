@@ -5,7 +5,6 @@ import Answer from "./answer";
 import Next from "./next";
 import Complete from "./complete";
 import { quizzes } from "../data/quizzes";
-import { messages } from "../data/messages";
 
 class Quiz extends Component {
   state = {
@@ -50,7 +49,6 @@ class Quiz extends Component {
     const nextQuiz = currentQuiz + 1;
 
     if (nextQuestion < currentQuizLength) {
-      // nextQuiz < numQuizzes
       this.setState({
         count: count + 1,
         currentQuiz: currentQuiz,

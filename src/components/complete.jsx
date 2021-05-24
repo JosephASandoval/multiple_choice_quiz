@@ -1,4 +1,5 @@
 import React from "react";
+import { getMessage } from "../data/messages";
 
 const Complete = (props) => {
   const { score, quizLength } = props;
@@ -8,7 +9,7 @@ const Complete = (props) => {
       <p>
         Your score is: {score} of {quizLength}
       </p>
-      <p>Thank you!</p>
+      <p>{getMessage()}</p>
     </>
   );
 };
