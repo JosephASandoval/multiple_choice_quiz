@@ -2,7 +2,7 @@ import React from "react";
 import { getMessage } from "../data/messages";
 
 const Complete = (props) => {
-  const { score, quizLength } = props;
+  const { score, quizLength, onReset } = props;
   return (
     <>
       <h1>You have completed the quiz!</h1>
@@ -10,6 +10,9 @@ const Complete = (props) => {
         Your score is: {score} of {quizLength}
       </p>
       <p>{getMessage()}</p>
+      <button onClick={onReset} className="next">
+        Reset
+      </button>
     </>
   );
 };

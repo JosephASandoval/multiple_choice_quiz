@@ -69,6 +69,19 @@ class Quiz extends Component {
     }
   };
 
+  handleReset = () => {
+    this.setState({
+      value: 0,
+      count: 0,
+      currentQuiz: 0,
+      currentQuestion: 0,
+      quizOver: false,
+      score: 0,
+      correctAnswer: "",
+      clickedAnswer: "",
+    });
+  };
+
   createAnswerOptions = (currentQuiz, currentQuestion) => {
     let answers = quizzes[currentQuiz].questions[
       currentQuestion
@@ -144,7 +157,11 @@ class Quiz extends Component {
           </div>
         ) : (
           <div className="complete">
-            <Complete score={score} quizLength={quizLength} />
+            <Complete
+              score={score}
+              quizLength={quizLength}
+              onReset={this.handleReset}
+            />
           </div>
         )}
       </>
