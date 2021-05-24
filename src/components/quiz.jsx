@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Title from "./title";
 import Question from "./question";
 import Answer from "./answer";
 import Next from "./next";
@@ -14,9 +15,6 @@ class Quiz extends Component {
     clickedAnswer: "",
   };
 
-  // method that handles click answers
-  // updates the score
-  // updates the next question
   handleSubmit = (answerOption, currentQuestion) => {
     const { score } = this.state;
     if (quizzes[0].questions[currentQuestion].correctAnswer === answerOption) {
@@ -34,15 +32,6 @@ class Quiz extends Component {
     }
   };
 
-  // method that creates an array of answers
-  answersArray = (currentQuestion) => {
-    return quizzes[0].questions[currentQuestion].incorrectAnswers.concat([
-      quizzes[0].questions[currentQuestion].correctAnswer,
-    ]);
-  };
-
-  // method to move to the next question
-  // ends game if no more questions
   handleNext = (currentQuestion, quizLength) => {
     const nextQuestion = currentQuestion + 1;
 
@@ -57,6 +46,12 @@ class Quiz extends Component {
     }
   };
 
+  answersArray = (currentQuestion) => {
+    return quizzes[0].questions[currentQuestion].incorrectAnswers.concat([
+      quizzes[0].questions[currentQuestion].correctAnswer,
+    ]);
+  };
+
   render() {
     const { currentQuestion, quizOver, score, correctAnswer, clickedAnswer } =
       this.state;
@@ -64,19 +59,14 @@ class Quiz extends Component {
     let quizLength = quizzes[0].questions.length;
 
     return (
-      <div className="Content">
-        {quizOver ? (
-          <div className="finalPage">
-            <h1>You have completed the quiz!</h1>
-            <p>
-              Your score is: {score} of {quizLength}
-            </p>
-            <p>Thank you!</p>
-          </div>
-        ) : (
-          <>
-            <span>Question {currentQuestion + 1}</span>/
-            {quizLength}
+      <>
+        {!quizOver ? (
+          <div>
+            <Title
+              title={quizzes[0].title}
+              currentQuestion={currentQuestion}
+              quizLength={quizLength}
+            />
             <Question question={quizzes[0].questions[currentQuestion].text} />
             <Answer
               answerOptions={this.answersArray(currentQuestion)}
@@ -91,9 +81,17 @@ class Quiz extends Component {
               onNext={this.handleNext}
               quizLength={quizLength}
             />
-          </>
+          </div>
+        ) : (
+          <div className="finalPage">
+            <h1>You have completed the quiz!</h1>
+            <p>
+              Your score is: {score} of {quizLength}
+            </p>
+            <p>Thank you!</p>
+          </div>
         )}
-      </div>
+      </>
     );
   }
 }
