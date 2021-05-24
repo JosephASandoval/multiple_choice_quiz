@@ -19,6 +19,16 @@ class Quiz extends Component {
     answerOptions: [],
   };
 
+  componentDidMount() {
+    const { answerOptions } = this.state;
+
+    if (answerOptions.length === 0) {
+      this.setState({
+        answerOptions: this.createAnswerOptions(0, 0),
+      });
+    }
+  }
+
   // Makes necessary state changes when the user choses and answer
   handleSubmit = (answerOption, currentQuestion) => {
     const { score, currentQuiz } = this.state;
@@ -133,12 +143,6 @@ class Quiz extends Component {
     });
 
     let currentQuizLength = quizzes[currentQuiz].questions.length;
-
-    if (answerOptions.length === 0) {
-      this.setState({
-        answerOptions: this.createAnswerOptions(0, 0),
-      });
-    }
 
     return (
       <>

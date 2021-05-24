@@ -32,7 +32,7 @@ const Answer = ({
 
   return (
     <>
-      <ol disabled={clickedAnswer ? true : false} className="answer">
+      <ol type="A" disabled={clickedAnswer ? true : false} className="answer">
         {answers}
       </ol>
       <div>
