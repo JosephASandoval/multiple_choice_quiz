@@ -1,6 +1,7 @@
 import React from "react";
 
 const Next = ({
+  numTimes,
   count,
   currentQuiz,
   currentQuestion,
@@ -18,6 +19,7 @@ const Next = ({
         }
         onClick={() =>
           onNext(
+            numTimes,
             count,
             currentQuiz,
             currentQuestion,

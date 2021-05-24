@@ -8,6 +8,7 @@ import { quizzes } from "../data/quizzes";
 
 class Quiz extends Component {
   state = {
+    numTimes: 0,
     count: 0,
     currentQuiz: 0,
     currentQuestion: 0,
@@ -39,6 +40,7 @@ class Quiz extends Component {
   };
 
   handleNext = (
+    numTimes,
     count,
     currentQuiz,
     currentQuestion,
@@ -65,13 +67,12 @@ class Quiz extends Component {
         clickedAnswer: "",
       });
     } else {
-      this.setState({ quizOver: true });
+      this.setState({ numTimes: numTimes + 1, quizOver: true });
     }
   };
 
-  handleReset = () => {
+  handleRetake = () => {
     this.setState({
-      value: 0,
       count: 0,
       currentQuiz: 0,
       currentQuestion: 0,
@@ -105,6 +106,7 @@ class Quiz extends Component {
 
   render() {
     const {
+      numTimes,
       count,
       currentQuiz,
       currentQuestion,
@@ -146,6 +148,7 @@ class Quiz extends Component {
               clickedAnswer={clickedAnswer}
             />
             <Next
+              numTimes={numTimes}
               count={count}
               currentQuiz={currentQuiz}
               currentQuestion={currentQuestion}
@@ -158,9 +161,10 @@ class Quiz extends Component {
         ) : (
           <div className="complete">
             <Complete
+              numTimes={numTimes}
               score={score}
               quizLength={quizLength}
-              onReset={this.handleReset}
+              onRetake={this.handleRetake}
             />
           </div>
         )}
