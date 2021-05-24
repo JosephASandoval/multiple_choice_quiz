@@ -96,7 +96,7 @@ class Quiz extends Component {
       score: 0,
       correctAnswer: "",
       clickedAnswer: "",
-      answerOptions: [],
+      answerOptions: this.createAnswerOptions(0, 0),
     });
   };
 
