@@ -16,7 +16,7 @@ class Quiz extends Component {
     score: 0,
     correctAnswer: "",
     clickedAnswer: "",
-    answerOptions: ["div", "h0", "p", "h1"],
+    answerOptions: [],
   };
 
   handleSubmit = (answerOption, currentQuestion) => {
@@ -129,6 +129,12 @@ class Quiz extends Component {
     });
 
     let currentQuizLength = quizzes[currentQuiz].questions.length;
+
+    if (answerOptions.length === 0) {
+      this.setState({
+        answerOptions: this.createAnswerOptions(0, 0),
+      });
+    }
 
     return (
       <>
