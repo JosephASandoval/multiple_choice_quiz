@@ -14,7 +14,7 @@ const Next = (props) => {
   return (
     <>
       <button
-        className="NextStep"
+        className="next"
         disabled={
           clickedAnswer && currentQuizLength >= currentQuestion ? false : true
         }

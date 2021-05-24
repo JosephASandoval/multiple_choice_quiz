@@ -1,7 +1,9 @@
 import React from "react";
+import { quizzes } from "../data/quizzes";
 
 const Answer = (props) => {
   const {
+    currentQuiz,
     answerOptions,
     currentQuestion,
     onSubmit,
@@ -12,10 +14,15 @@ const Answer = (props) => {
   let answers = answerOptions.map((answerOption) => (
     <li
       className={
-        correctAnswer === answerOption
-          ? "correct"
-          : clickedAnswer === answerOption
-          ? "incorrect"
+        clickedAnswer
+          ? answerOption ===
+            quizzes[currentQuiz].questions[currentQuestion].correctAnswer
+            ? "correct"
+            : correctAnswer === answerOption
+            ? "correct"
+            : clickedAnswer === answerOption
+            ? "incorrect"
+            : ""
           : ""
       }
       onClick={() => onSubmit(answerOption, currentQuestion)}
@@ -27,15 +34,11 @@ const Answer = (props) => {
 
   return (
     <>
-      <ul disabled={clickedAnswer ? true : false} className="Answers">
+      <ol disabled={clickedAnswer ? true : false} className="answer">
         {answers}
-      </ul>
+      </ol>
       <div>
-        {correctAnswer
-          ? "Correct!"
-          : clickedAnswer
-          ? "Incorrect..."
-          : ""}
+        {correctAnswer ? "Correct!" : clickedAnswer ? "Incorrect..." : ""}
       </div>
     </>
   );

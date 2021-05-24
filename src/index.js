@@ -5,7 +5,7 @@ import "./styles.css";
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="app">
       <Quiz />
     </div>
   );

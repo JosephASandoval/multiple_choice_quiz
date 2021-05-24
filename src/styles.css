@@ -1,32 +1,31 @@
-.App {
+.app {
   font-family: sans-serif;
   text-align: center;
 }
 
-.NextStep {
-  background-color: #009e00;
-  color: #fff;
+.next {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
   padding: 10px 30px;
-  border: 0;
   border-radius: 3px;
   cursor: pointer;
 }
 
-.NextStep:hover {
-  background-color: green;
+.next:hover {
+  background-color: lightgrey;
 }
 
-.NextStep[disabled] {
+.next[disabled] {
   display: none;
 }
 
-.finalPage {
+.complete {
   text-align: center;
 }
 
-.finalPage h1 {
+.complete h1 {
   text-align: center;
-  margin: 15px 0;
   font-size: 25px;
   font-family: Arial, sans-serif;
   font-weight: bold;
@@ -35,39 +34,41 @@
   text-shadow: none;
 }
 
-.Answers {
-  list-style: none;
+.answer {
+  list-style: upper-alpha;
   margin: 0;
   padding: 0;
 }
 
-.Answers li {
+.answer li {
   padding: 10px;
-  border-left: 4px solid #ff3b3b;
-  background-color: #bbb;
-  margin: 0 0 5px;
+  margin: 10px;
+  font-weight: bold;
+  width: 50%;
+  margin-left: 25%;
+  display: flex;
+  align-items: flex-start;
+  font-size: 25px;
 }
 
-.Answers li:hover {
+.answer li:hover {
   cursor: pointer;
-  background-color: #a2a2a2;
+  background-color: lightgrey;
 }
 
-.Answers .correct,
-.Answers .correct:hover {
-  background-color: #1db900;
-  border-left: 4px solid #0f6300;
-  color: #fff;
+.answer .correct,
+.answer .correct:hover {
+  border: 1px green solid;
+  color: black;
 }
 
-.Answers .incorrect,
-.Answers .incorrect:hover {
-  background-color: #ec0000;
-  border-left: 4px solid #ff3b3b;
-  color: #fff;
+.answer .incorrect,
+.answer .incorrect:hover {
+  border: 1px red solid;
+  text-decoration: line-through;
+  color: black;
 }
 
-.Answers[disabled] {
+.answer[disabled] {
   pointer-events: none;
-  opacity: 0.7;
 }

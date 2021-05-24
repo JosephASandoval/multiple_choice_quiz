@@ -143,7 +143,7 @@ class Quiz extends Component {
             />
           </div>
         ) : (
-          <div className="finalPage">
+          <div className="complete">
             <Complete score={score} quizLength={quizLength} />
           </div>
         )}
