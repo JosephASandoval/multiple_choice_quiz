@@ -38,7 +38,7 @@
 }
 
 .answer {
-  list-style: upper-alpha;
+  list-style-type: upper-alpha;
   margin: 0;
   padding: 0;
 }
