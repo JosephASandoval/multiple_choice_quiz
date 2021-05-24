@@ -19,6 +19,7 @@ class Quiz extends Component {
     answerOptions: [],
   };
 
+  // Makes necessary state changes when the user choses and answer
   handleSubmit = (answerOption, currentQuestion) => {
     const { score, currentQuiz } = this.state;
 
@@ -40,6 +41,7 @@ class Quiz extends Component {
     }
   };
 
+  // Makes necessary state changes when the user clicks "Next"
   handleNext = (
     numTimes,
     count,
@@ -74,6 +76,7 @@ class Quiz extends Component {
     }
   };
 
+  // Resets the Quiz while maintaining "numTimes" user has taken the quiz
   handleRetake = () => {
     this.setState({
       count: 0,
@@ -83,10 +86,11 @@ class Quiz extends Component {
       score: 0,
       correctAnswer: "",
       clickedAnswer: "",
-      answerOptions: ["div", "h0", "p", "h1"],
+      answerOptions: [],
     });
   };
 
+  // Creates an array of answers corresponding to the current quiz and question
   createAnswerOptions = (currentQuiz, currentQuestion) => {
     let answers = quizzes[currentQuiz].questions[
       currentQuestion
@@ -96,7 +100,7 @@ class Quiz extends Component {
     return this.shuffle(answers);
   };
 
-  // Fisher-Yates shuffle
+  // Fisher-Yates shuffle (helper function found online)
   shuffle = (array) => {
     let oldElement;
     for (let i = array.length - 1; i > 0; i--) {
