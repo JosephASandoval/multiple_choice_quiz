@@ -3,6 +3,7 @@ import Title from "./title";
 import Question from "./question";
 import Answer from "./answer";
 import Next from "./next";
+import Complete from "./complete";
 import { quizzes } from "../data/quizzes";
 import { messages } from "../data/messages";
 
@@ -84,11 +85,7 @@ class Quiz extends Component {
           </div>
         ) : (
           <div className="finalPage">
-            <h1>You have completed the quiz!</h1>
-            <p>
-              Your score is: {score} of {quizLength}
-            </p>
-            <p>Thank you!</p>
+            <Complete score={score} quizLength={quizLength} />
           </div>
         )}
       </>
