@@ -33,13 +33,7 @@
   text-shadow: none;
 }
 
-.complete h1 span {
-  color: green;
-  font-weight: bolder;
-}
-
 .complete p span {
-  color: green;
   font-weight: bolder;
 }
 
