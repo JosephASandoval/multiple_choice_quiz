@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Question from "./question";
+import Answer from "./answer";
 import { quizzes } from "../data/quizzes";
 import { messages } from "../data/messages";
 
@@ -8,22 +9,27 @@ class Quiz extends Component {
     currentQuestion: 0,
     quizOver: false,
     score: 0,
+    correctAnswer: "",
+    clickedAnswer: "",
   };
 
   // method that handles click answers
   // updates the score
   // updates the next question
-  handleSubmit = (chosenAnswer, currentQuestion) => {
+  handleSubmit = (answerOption, currentQuestion) => {
     const { score } = this.state;
-    if (quizzes[0].questions[currentQuestion].correctAnswer === chosenAnswer) {
-      this.setState({ score: score + 1 });
-    }
-
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < quizzes[0].questions.length) {
-      this.setState({ currentQuestion: nextQuestion });
+    if (quizzes[0].questions[currentQuestion].correctAnswer === answerOption) {
+      this.setState({
+        score: score + 1,
+        correctAnswer: answerOption,
+        clickedAnswer: answerOption,
+      });
     } else {
-      this.setState({ quizOver: true });
+      this.setState({
+        score: score,
+        correctAnswer: "",
+        clickedAnswer: answerOption,
+      });
     }
   };
 
@@ -34,39 +40,59 @@ class Quiz extends Component {
     ]);
   };
 
+  // method to move to the next question
+  // ends game if no more questions
+  handleNext = (currentQuestion) => {
+    const nextQuestion = currentQuestion + 1;
+
+    if (nextQuestion < quizzes[0].questions.length) {
+      this.setState({
+        currentQuestion: nextQuestion,
+        correctAnswer: "",
+        clickedAnswer: "",
+      });
+    } else {
+      this.setState({ quizOver: true });
+    }
+  };
+
   render() {
-    const { currentQuestion, quizOver, score } = this.state;
+    const { currentQuestion, quizOver, score, correctAnswer, clickedAnswer } =
+      this.state;
 
     return (
-      <div className="app">
+      <div className="Content">
         {quizOver ? (
-          <div className="score-section">
-            You scored {score} out of {quizzes[0].questions.length}
+          <div className="finalPage">
+            <h1>You have completed the quiz!</h1>
+            <p>
+              Your score is: {score} of {quizzes[0].questions.length}
+            </p>
+            <p>Thank you!</p>
           </div>
         ) : (
           <>
-            <div className="question-section">
-              <div className="question-count">
-                <span>Question {currentQuestion + 1}</span>/
-                {quizzes[0].questions.length}
-              </div>
-              <div className="question-text">
-                <Question
-                  question={quizzes[0].questions[currentQuestion].text}
-                />
-              </div>
-            </div>
-            <div className="answer-section">
-              {this.answersArray(currentQuestion).map((chosenAnswer) => (
-                <button
-                  onClick={() =>
-                    this.handleSubmit(chosenAnswer, currentQuestion)
-                  }
-                >
-                  {chosenAnswer}
-                </button>
-              ))}
-            </div>
+            <span>Question {currentQuestion + 1}</span>/
+            {quizzes[0].questions.length}
+            <Question question={quizzes[0].questions[currentQuestion].text} />
+            <Answer
+              answerOptions={this.answersArray(currentQuestion)}
+              currentQuestion={currentQuestion}
+              onSubmit={this.handleSubmit}
+              correctAnswer={correctAnswer}
+              clickedAnswer={clickedAnswer}
+            />
+            <button
+              className="NextStep"
+              disabled={
+                clickedAnswer && quizzes[0].questions.length >= currentQuestion
+                  ? false
+                  : true
+              }
+              onClick={() => this.handleNext(currentQuestion)}
+            >
+              Next
+            </button>
           </>
         )}
       </div>
