@@ -9,6 +9,8 @@ import { messages } from "../data/messages";
 
 class Quiz extends Component {
   state = {
+    count: 0,
+    currentQuiz: 0,
     currentQuestion: 0,
     quizOver: false,
     score: 0,
@@ -17,8 +19,12 @@ class Quiz extends Component {
   };
 
   handleSubmit = (answerOption, currentQuestion) => {
-    const { score } = this.state;
-    if (quizzes[0].questions[currentQuestion].correctAnswer === answerOption) {
+    const { score, currentQuiz } = this.state;
+
+    if (
+      quizzes[currentQuiz].questions[currentQuestion].correctAnswer ===
+      answerOption
+    ) {
       this.setState({
         score: score + 1,
         correctAnswer: answerOption,
@@ -33,12 +39,30 @@ class Quiz extends Component {
     }
   };
 
-  handleNext = (currentQuestion, quizLength) => {
+  handleNext = (
+    count,
+    currentQuiz,
+    currentQuestion,
+    currentQuizLength,
+    numQuizzes
+  ) => {
     const nextQuestion = currentQuestion + 1;
+    const nextQuiz = currentQuiz + 1;
 
-    if (nextQuestion < quizLength) {
+    if (nextQuestion < currentQuizLength) {
+      // nextQuiz < numQuizzes
       this.setState({
+        count: count + 1,
+        currentQuiz: currentQuiz,
         currentQuestion: nextQuestion,
+        correctAnswer: "",
+        clickedAnswer: "",
+      });
+    } else if (nextQuiz < numQuizzes) {
+      this.setState({
+        count: count + 1,
+        currentQuiz: nextQuiz,
+        currentQuestion: 0,
         correctAnswer: "",
         clickedAnswer: "",
       });
@@ -47,10 +71,12 @@ class Quiz extends Component {
     }
   };
 
-  createAnswerOptions = (currentQuestion) => {
-    let answers = quizzes[0].questions[currentQuestion].incorrectAnswers.concat(
-      [quizzes[0].questions[currentQuestion].correctAnswer]
-    );
+  createAnswerOptions = (currentQuiz, currentQuestion) => {
+    let answers = quizzes[currentQuiz].questions[
+      currentQuestion
+    ].incorrectAnswers.concat([
+      quizzes[currentQuiz].questions[currentQuestion].correctAnswer,
+    ]);
     return this.shuffle(answers);
   };
 
@@ -67,33 +93,55 @@ class Quiz extends Component {
   };
 
   render() {
-    const { currentQuestion, quizOver, score, correctAnswer, clickedAnswer } =
-      this.state;
-    const answerOptions = this.createAnswerOptions(currentQuestion);
-    let quizLength = quizzes[0].questions.length;
+    const {
+      count,
+      currentQuiz,
+      currentQuestion,
+      quizOver,
+      score,
+      correctAnswer,
+      clickedAnswer,
+    } = this.state;
+
+    let answerOptions = this.createAnswerOptions(currentQuiz, currentQuestion);
+
+    let quizLength = 0;
+    let numQuizzes = 0;
+    quizzes.forEach((quiz) => {
+      quizLength += quiz.questions.length;
+      numQuizzes++;
+    });
+
+    let currentQuizLength = quizzes[currentQuiz].questions.length;
 
     return (
       <>
         {!quizOver ? (
           <div>
             <Title
-              title={quizzes[0].title}
-              currentQuestion={currentQuestion}
+              title={quizzes[currentQuiz].title}
+              count={count}
               quizLength={quizLength}
             />
-            <Question question={quizzes[0].questions[currentQuestion].text} />
+            <Question
+              question={quizzes[currentQuiz].questions[currentQuestion].text}
+            />
             <Answer
               answerOptions={answerOptions}
+              currentQuiz={currentQuiz}
               currentQuestion={currentQuestion}
               onSubmit={this.handleSubmit}
               correctAnswer={correctAnswer}
               clickedAnswer={clickedAnswer}
             />
             <Next
+              count={count}
+              currentQuiz={currentQuiz}
               currentQuestion={currentQuestion}
               clickedAnswer={clickedAnswer}
               onNext={this.handleNext}
-              quizLength={quizLength}
+              currentQuizLength={currentQuizLength}
+              numQuizzes={numQuizzes}
             />
           </div>
         ) : (

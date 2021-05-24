@@ -32,9 +32,9 @@ const Answer = (props) => {
       </ul>
       <div>
         {correctAnswer
-          ? "Correct Answer!"
+          ? "Correct!"
           : clickedAnswer
-          ? "Incorrect Answer!"
+          ? "Incorrect..."
           : ""}
       </div>
     </>

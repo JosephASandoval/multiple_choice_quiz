@@ -1,15 +1,32 @@
 import React from "react";
-// import { quizzes } from "../data/quizzes";
 
 const Next = (props) => {
-  const { currentQuestion, clickedAnswer, onNext, quizLength } = props;
+  const {
+    count,
+    currentQuiz,
+    currentQuestion,
+    clickedAnswer,
+    onNext,
+    currentQuizLength,
+    numQuizzes,
+  } = props;
 
   return (
     <>
       <button
         className="NextStep"
-        disabled={clickedAnswer && quizLength >= currentQuestion ? false : true}
-        onClick={() => onNext(currentQuestion, quizLength)}
+        disabled={
+          clickedAnswer && currentQuizLength >= currentQuestion ? false : true
+        }
+        onClick={() =>
+          onNext(
+            count,
+            currentQuiz,
+            currentQuestion,
+            currentQuizLength,
+            numQuizzes
+          )
+        }
       >
         Next
       </button>
