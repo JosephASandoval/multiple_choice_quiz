@@ -3,11 +3,11 @@ import { quizzes } from "../data/quizzes";
 
 const Answer = ({
   currentQuiz,
-  answerOptions,
   currentQuestion,
   onSubmit,
   correctAnswer,
   clickedAnswer,
+  answerOptions,
 }) => {
   let answers = answerOptions.map((answerOption) => (
     <li

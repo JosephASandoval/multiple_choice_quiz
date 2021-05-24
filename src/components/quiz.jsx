@@ -16,6 +16,7 @@ class Quiz extends Component {
     score: 0,
     correctAnswer: "",
     clickedAnswer: "",
+    answerOptions: ["div", "h0", "p", "h1"],
   };
 
   handleSubmit = (answerOption, currentQuestion) => {
@@ -57,6 +58,7 @@ class Quiz extends Component {
         currentQuestion: nextQuestion,
         correctAnswer: "",
         clickedAnswer: "",
+        answerOptions: this.createAnswerOptions(currentQuiz, nextQuestion),
       });
     } else if (nextQuiz < numQuizzes) {
       this.setState({
@@ -65,6 +67,7 @@ class Quiz extends Component {
         currentQuestion: 0,
         correctAnswer: "",
         clickedAnswer: "",
+        answerOptions: this.createAnswerOptions(nextQuiz, 0),
       });
     } else {
       this.setState({ numTimes: numTimes + 1, quizOver: true });
@@ -80,6 +83,7 @@ class Quiz extends Component {
       score: 0,
       correctAnswer: "",
       clickedAnswer: "",
+      answerOptions: ["div", "h0", "p", "h1"],
     });
   };
 
@@ -114,9 +118,8 @@ class Quiz extends Component {
       score,
       correctAnswer,
       clickedAnswer,
+      answerOptions,
     } = this.state;
-
-    let answerOptions = this.createAnswerOptions(currentQuiz, currentQuestion);
 
     let quizLength = 0;
     let numQuizzes = 0;
@@ -140,12 +143,12 @@ class Quiz extends Component {
               question={quizzes[currentQuiz].questions[currentQuestion].text}
             />
             <Answer
-              answerOptions={answerOptions}
               currentQuiz={currentQuiz}
               currentQuestion={currentQuestion}
               onSubmit={this.handleSubmit}
               correctAnswer={correctAnswer}
               clickedAnswer={clickedAnswer}
+              answerOptions={answerOptions}
             />
             <Next
               numTimes={numTimes}
