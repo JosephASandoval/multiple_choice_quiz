@@ -47,16 +47,29 @@ class Quiz extends Component {
     }
   };
 
-  answersArray = (currentQuestion) => {
-    return quizzes[0].questions[currentQuestion].incorrectAnswers.concat([
-      quizzes[0].questions[currentQuestion].correctAnswer,
-    ]);
+  createAnswerOptions = (currentQuestion) => {
+    let answers = quizzes[0].questions[currentQuestion].incorrectAnswers.concat(
+      [quizzes[0].questions[currentQuestion].correctAnswer]
+    );
+    return this.shuffle(answers);
+  };
+
+  // Fisher-Yates shuffle
+  shuffle = (array) => {
+    let oldElement;
+    for (let i = array.length - 1; i > 0; i--) {
+      let rand = Math.floor(Math.random() * (i + 1));
+      oldElement = array[i];
+      array[i] = array[rand];
+      array[rand] = oldElement;
+    }
+    return array;
   };
 
   render() {
     const { currentQuestion, quizOver, score, correctAnswer, clickedAnswer } =
       this.state;
-
+    const answerOptions = this.createAnswerOptions(currentQuestion);
     let quizLength = quizzes[0].questions.length;
 
     return (
@@ -70,7 +83,7 @@ class Quiz extends Component {
             />
             <Question question={quizzes[0].questions[currentQuestion].text} />
             <Answer
-              answerOptions={this.answersArray(currentQuestion)}
+              answerOptions={answerOptions}
               currentQuestion={currentQuestion}
               onSubmit={this.handleSubmit}
               correctAnswer={correctAnswer}
