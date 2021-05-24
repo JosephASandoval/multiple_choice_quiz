@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Question from "./question";
 import Answer from "./answer";
+import Next from "./next";
 import { quizzes } from "../data/quizzes";
 import { messages } from "../data/messages";
 
@@ -42,10 +43,10 @@ class Quiz extends Component {
 
   // method to move to the next question
   // ends game if no more questions
-  handleNext = (currentQuestion) => {
+  handleNext = (currentQuestion, quizLength) => {
     const nextQuestion = currentQuestion + 1;
 
-    if (nextQuestion < quizzes[0].questions.length) {
+    if (nextQuestion < quizLength) {
       this.setState({
         currentQuestion: nextQuestion,
         correctAnswer: "",
@@ -60,20 +61,22 @@ class Quiz extends Component {
     const { currentQuestion, quizOver, score, correctAnswer, clickedAnswer } =
       this.state;
 
+    let quizLength = quizzes[0].questions.length;
+
     return (
       <div className="Content">
         {quizOver ? (
           <div className="finalPage">
             <h1>You have completed the quiz!</h1>
             <p>
-              Your score is: {score} of {quizzes[0].questions.length}
+              Your score is: {score} of {quizLength}
             </p>
             <p>Thank you!</p>
           </div>
         ) : (
           <>
             <span>Question {currentQuestion + 1}</span>/
-            {quizzes[0].questions.length}
+            {quizLength}
             <Question question={quizzes[0].questions[currentQuestion].text} />
             <Answer
               answerOptions={this.answersArray(currentQuestion)}
@@ -82,17 +85,12 @@ class Quiz extends Component {
               correctAnswer={correctAnswer}
               clickedAnswer={clickedAnswer}
             />
-            <button
-              className="NextStep"
-              disabled={
-                clickedAnswer && quizzes[0].questions.length >= currentQuestion
-                  ? false
-                  : true
-              }
-              onClick={() => this.handleNext(currentQuestion)}
-            >
-              Next
-            </button>
+            <Next
+              currentQuestion={currentQuestion}
+              clickedAnswer={clickedAnswer}
+              onNext={this.handleNext}
+              quizLength={quizLength}
+            />
           </>
         )}
       </div>
