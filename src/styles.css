@@ -38,6 +38,11 @@
   font-weight: bolder;
 }
 
+.complete p span {
+  color: green;
+  font-weight: bolder;
+}
+
 .answer {
   list-style: upper-alpha;
   margin: 0;
