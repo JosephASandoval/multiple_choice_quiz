@@ -1,16 +1,14 @@
 import React from "react";
 
-const Next = (props) => {
-  const {
-    count,
-    currentQuiz,
-    currentQuestion,
-    clickedAnswer,
-    onNext,
-    currentQuizLength,
-    numQuizzes,
-  } = props;
-
+const Next = ({
+  count,
+  currentQuiz,
+  currentQuestion,
+  clickedAnswer,
+  onNext,
+  currentQuizLength,
+  numQuizzes,
+}) => {
   return (
     <>
       <button

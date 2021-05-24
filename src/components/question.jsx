@@ -1,8 +1,6 @@
 import React from "react";
 
-const Question = (props) => {
-  const { question } = props;
-
+const Question = ({ question }) => {
   return (
     <>
       <h2>{question}</h2>

@@ -1,16 +1,14 @@
 import React from "react";
 import { quizzes } from "../data/quizzes";
 
-const Answer = (props) => {
-  const {
-    currentQuiz,
-    answerOptions,
-    currentQuestion,
-    onSubmit,
-    correctAnswer,
-    clickedAnswer,
-  } = props;
-
+const Answer = ({
+  currentQuiz,
+  answerOptions,
+  currentQuestion,
+  onSubmit,
+  correctAnswer,
+  clickedAnswer,
+}) => {
   let answers = answerOptions.map((answerOption) => (
     <li
       className={

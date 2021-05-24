@@ -1,8 +1,7 @@
 import React from "react";
 import { getMessage } from "../data/messages";
 
-const Complete = (props) => {
-  const { score, quizLength, onReset } = props;
+const Complete = ({ score, quizLength, onReset }) => {
   return (
     <>
       <h1>You have completed the quiz!</h1>
